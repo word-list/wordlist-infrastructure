@@ -6,9 +6,9 @@ resource "aws_lambda_function" "update_from_source" {
   handler       = "com.example.Handler::handleRequest"
   role          = aws_iam_role.update_from_source.arn
 
-#   s3_bucket = aws_s3_bucket.deployment_artifacts.bucket
-#   s3_key    = var.update_sources_package_key
-    filename = "./dummy.jar"
+  s3_bucket = var.use_dummy_handlers ? null : aws_s3_bucket.deployment_artifacts.bucket
+  s3_key    = var.use_dummy_handlers ? null : var.update_from_source_package_key
+  filename  = var.use_dummy_handlers ? "./dummy.jar" : null
 
   environment {
     variables = {
@@ -27,8 +27,8 @@ resource "aws_lambda_function" "validate_words_lambda" {
   handler       = "com.example.ValidateWordsHandler::handleRequest"
   role          = aws_iam_role.validate_words_role.arn
 
-#   s3_bucket = aws_s3_bucket.deployment_artifacts.bucket
-#   s3_key    = var.validate_words_package_key
+  #   s3_bucket = aws_s3_bucket.deployment_artifacts.bucket
+  #   s3_key    = var.validate_words_package_key
   filename = "./dummy.jar"
 
   environment {
@@ -48,8 +48,8 @@ resource "aws_lambda_function" "update_words_lambda" {
   handler       = "com.example.UpdateWordsHandler::handleRequest"
   role          = aws_iam_role.update_words_role.arn
 
-#   s3_bucket = aws_s3_bucket.deployment_artifacts.bucket
-#   s3_key    = var.update_words_package_key
+  #   s3_bucket = aws_s3_bucket.deployment_artifacts.bucket
+  #   s3_key    = var.update_words_package_key
   filename = "./dummy.jar"
 
   environment {

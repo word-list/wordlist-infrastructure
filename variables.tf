@@ -33,3 +33,9 @@ variable "update_words_package_key" {
     type        = string
     default     = "update-words-package.jar"
 }
+
+variable "use_dummy_handlers" {
+    description = "Flag to use dummy handlers for Lambda functions (e.g. for initial deployment)"
+    type        = bool
+    default     = false
+}
