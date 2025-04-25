@@ -1,6 +1,6 @@
 # Create an SQS Queue
-resource "aws_sqs_queue" "update_source_queue" {
-  name                       = "${var.project}-${var.environment}-update-source-queue"
+resource "aws_sqs_queue" "update_from_source" {
+  name                       = "${var.project}-${var.environment}-update-from-source-queue"
   visibility_timeout_seconds = 30
   message_retention_seconds  = 86400
 

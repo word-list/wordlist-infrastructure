@@ -16,10 +16,10 @@ variable "deployment_bucket_name" {
     default     = "deployment-bucket"
 }
 
-variable "update_sources_package_key" {
-    description = "The key for the update sources package in the deployment bucket"
+variable "update_from_source_package_key" {
+    description = "The key for the 'update from source' package in the deployment bucket"
     type        = string
-    default     = "update-sources-package.jar"
+    default     = "updatesource.jar"
 }
 
 variable "validate_words_package_key" {

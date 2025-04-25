@@ -1,7 +1,7 @@
 
 # IAM Role for Lambda Execution
-resource "aws_iam_role" "update_sources_role" {
-  name = "${var.project}-${var.environment}-update-sources-role"
+resource "aws_iam_role" "update_from_source" {
+  name = "${var.project}-${var.environment}-update-from-source-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

@@ -1,6 +1,6 @@
 # IAM Policy Attachment for Update Source Role
-resource "aws_iam_role_policy_attachment" "update_source_policy" {
-  role       = aws_iam_role.update_sources_role.name
+resource "aws_iam_role_policy_attachment" "update_from_source" {
+  role       = aws_iam_role.update_from_source.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
@@ -17,8 +17,8 @@ resource "aws_iam_role_policy_attachment" "update_words_policy" {
 }
 
 # Grant Update Source Lambda Access to SQS and DynamoDB
-resource "aws_iam_policy" "update_source_sqs_dynamodb_policy" {
-  name = "${var.project}-${var.environment}-update-source-sqs-dynamodb-policy"
+resource "aws_iam_policy" "update_from_source_sqs_dynamodb_policy" {
+  name = "${var.project}-${var.environment}-update-from-source-sqs-dynamodb-policy"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -31,7 +31,7 @@ resource "aws_iam_policy" "update_source_sqs_dynamodb_policy" {
           "sqs:GetQueueAttributes"
         ]
         Effect   = "Allow"
-        Resource = aws_sqs_queue.update_source_queue.arn
+        Resource = aws_sqs_queue.update_from_source.arn
       },
       {
         Action = [
@@ -45,9 +45,9 @@ resource "aws_iam_policy" "update_source_sqs_dynamodb_policy" {
 
   tags = aws_servicecatalogappregistry_application.wordlist_application.application_tag
 }
-resource "aws_iam_role_policy_attachment" "update_source_sqs_dynamodb_policy_attachment" {
-  role       = aws_iam_role.update_sources_role.name
-  policy_arn = aws_iam_policy.update_source_sqs_dynamodb_policy.arn
+resource "aws_iam_role_policy_attachment" "update_from_source_sqs_dynamodb_policy_attachment" {
+  role       = aws_iam_role.update_from_source.name
+  policy_arn = aws_iam_policy.update_from_source_sqs_dynamodb_policy.arn
 }
 
 # Grant Validate Words Lambda Access to SQS and DynamoDB
