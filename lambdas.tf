@@ -41,7 +41,7 @@ resource "aws_lambda_function" "query_word" {
 }
 
 # update-batches lambda
-resource "aws_lambda_function" "update-batches" {
+resource "aws_lambda_function" "update_batches" {
   function_name = "${var.project}-${var.environment}-update-batches"
   runtime       = "java21"
   handler       = "tech.gaul.wordlist.updatebatches.App::handleRequest"
@@ -54,7 +54,7 @@ resource "aws_lambda_function" "update-batches" {
   environment {
     variables = {
       ACTIVE_QUERIES_TABLE_NAME     = aws_dynamodb_table.active_queries.name
-      UPDATE_BATCH_STATUS_QUEUE_URL = aws_sqs_queue.update_batch.url
+      UPDATE_BATCH_STATUS_QUEUE_URL = aws_sqs_queue.update_batch_status.url
     }
   }
 
@@ -85,7 +85,7 @@ resource "aws_lambda_function" "update_batch_status" {
 }
 
 # update-word lambda
-resource "aws_lambda_function" "update-word" {
+resource "aws_lambda_function" "update_word" {
   function_name = "${var.project}-${var.environment}-update-word"
   runtime       = "java21"
   handler       = "tech.gaul.wordlist.updateword.App::handleRequest"

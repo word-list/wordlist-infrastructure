@@ -121,7 +121,7 @@ resource "aws_iam_policy" "sqs_rw_update_word_queue_policy" {
           "sqs:GetQueueAttributes"
         ]
         Effect   = "Allow"
-        Resource = aws_sqs_queue.update_word_queue.arn
+        Resource = aws_sqs_queue.update_word.arn
       }
     ]
   })
@@ -258,7 +258,7 @@ resource "aws_iam_role_policy_attachment" "update_batch_status_db_rw_active_quer
 
 resource "aws_iam_role_policy_attachment" "update_batch_status_db_rw_completed_queries" {
   role       = aws_iam_role.update_batch_status.name
-  policy_arn = aws_iam_policy.db_rw_completed_queries.arn
+  policy_arn = aws_iam_policy.db_rw_completed_queries_policy.arn
 }
 
 ## update-word lambda policy attachments
