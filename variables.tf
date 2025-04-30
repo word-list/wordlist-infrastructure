@@ -28,11 +28,17 @@ variable "query_word_package_key" {
     default     = "querywords.jar"
 }
 
-variable "update_batch_package_key" {
-    description = "The key for the update-batch package in the deployment bucket"
+variable "update_batches_package_key" {
+    description = "The key for the update-batches package in the deployment bucket"
     type        = string
-    default     = "updatebatch.jar"
+    default     = "updatebatches.jar"
 }
+
+variable "update_batch_status_package_key" {
+    description = "The key for the update-batch-status package in the deployment bucket"
+    type        = string
+    default     = "updatebatchstatus.jar"
+} 
 
 variable "update_word_package_key" {
     description = "The key for the update-word package in the deployment bucket"
