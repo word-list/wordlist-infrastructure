@@ -25,7 +25,7 @@ variable "update_from_source_package_key" {
 variable "query_word_package_key" {
   description = "The key for the query-word package in the deployment bucket"
   type        = string
-  default     = "querywords.jar"
+  default     = "queryword.jar"
 }
 
 variable "update_batches_package_key" {
