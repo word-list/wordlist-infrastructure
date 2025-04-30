@@ -12,7 +12,7 @@ resource "aws_lambda_function" "update_from_source" {
 
   environment {
     variables = {
-      SOURCES_TABLE_NAME = aws_dynamodb_table.sources.function_name
+      SOURCES_TABLE_NAME   = aws_dynamodb_table.sources.name
       QUERY_WORD_QUEUE_URL = aws_sqs_queue.query_word.url
     }
   }
@@ -33,7 +33,7 @@ resource "aws_lambda_function" "query_word" {
 
   environment {
     variables = {
-      ACTIVE_QUERIES_TABLE_NAME = aws_dynamodb_table.active_queries.name      
+      ACTIVE_QUERIES_TABLE_NAME = aws_dynamodb_table.active_queries.name
     }
   }
 
@@ -53,7 +53,7 @@ resource "aws_lambda_function" "update-batches" {
 
   environment {
     variables = {
-      ACTIVE_QUERIES_TABLE_NAME = aws_dynamodb_table.active_queries.name
+      ACTIVE_QUERIES_TABLE_NAME     = aws_dynamodb_table.active_queries.name
       UPDATE_BATCH_STATUS_QUEUE_URL = aws_sqs_queue.update_batch.url
     }
   }
@@ -74,10 +74,10 @@ resource "aws_lambda_function" "update_batch_status" {
 
   environment {
     variables = {
-      ACTIVE_QUERIES_TABLE_NAME = aws_dynamodb_table.active_queries.name
+      ACTIVE_QUERIES_TABLE_NAME    = aws_dynamodb_table.active_queries.name
       COMPLETED_QUERIES_TABLE_NAME = aws_dynamodb_table.completed_queries.name
-      QUERY_WORD_QUEUE_URL = aws_sqs_queue.query_word.url
-      UPDATE_WORD_QUEUE_URL = aws_sqs_queue.update_word.url          
+      QUERY_WORD_QUEUE_URL         = aws_sqs_queue.query_word.url
+      UPDATE_WORD_QUEUE_URL        = aws_sqs_queue.update_word.url
     }
   }
 
@@ -87,9 +87,9 @@ resource "aws_lambda_function" "update_batch_status" {
 # update-word lambda
 resource "aws_lambda_function" "update-word" {
   function_name = "${var.project}-${var.environment}-update-word"
-  runtime = "java21"
-  handler = "tech.gaul.wordlist.updateword.App::handleRequest"
-  role = aws_iam_role.update_word.arn
+  runtime       = "java21"
+  handler       = "tech.gaul.wordlist.updateword.App::handleRequest"
+  role          = aws_iam_role.update_word.arn
 
   s3_bucket = var.use_dummy_handlers ? null : aws_s3_bucket.deployment_artifacts.bucket
   s3_key    = var.use_dummy_handlers ? null : var.update_word_package_key
