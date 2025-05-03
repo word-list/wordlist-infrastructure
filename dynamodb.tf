@@ -63,6 +63,51 @@ resource "aws_dynamodb_table" "active_queries" {
     type = "S"
   }
 
+  attribute {
+    name = "batchRequestId"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "batchRequestId-index"
+    hash_key        = "batchRequestId"
+    projection_type = "ALL"
+
+    read_capacity  = 1
+    write_capacity = 1
+  }
+
+  tags = aws_servicecatalogappregistry_application.wordlist_application.application_tag
+}
+
+# active-batches-table
+resource "aws_dynamodb_table" "active_batches" {
+  name         = "${var.project}-${var.environment}-active-batches-table"
+  billing_mode = "PROVISIONED"
+
+  read_capacity  = 1
+  write_capacity = 1
+  hash_key       = "id"
+
+  attribute {
+    name = "batchRequestId"
+    type = "S"
+  }
+
+  attribute {
+    name = "status"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "status-index"
+    hash_key        = "status"
+    projection_type = "ALL"
+
+    read_capacity  = 1
+    write_capacity = 1
+  }
+
   tags = aws_servicecatalogappregistry_application.wordlist_application.application_tag
 }
 
