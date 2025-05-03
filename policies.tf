@@ -175,6 +175,30 @@ resource "aws_iam_policy" "db_rw_words_policy" {
   tags = aws_servicecatalogappregistry_application.wordlist_application.application_tag
 }
 
+# read/write active-batches-table policy
+resource "aws_iam_policy" "db_rw_active_batches_policy" {
+  name = "${var.project}-${var.environment}-db-rw-active-batches"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "dynamodb:PutItem",
+          "dynamodb:GetItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem"
+        ]
+        Effect   = "Allow"
+        Resource = aws_dynamodb_table.active_batches.arn
+      }
+    ]
+  })
+
+  tags = aws_servicecatalogappregistry_application.wordlist_application.application_tag
+}
+
+
 # Policy assignments
 
 ## update-from-source lambda policy attachments
@@ -230,6 +254,11 @@ resource "aws_iam_role_policy_attachment" "update_batches_db_rw_active_queries" 
   policy_arn = aws_iam_policy.db_rw_active_queries_policy.arn
 }
 
+resource "aws_iam_role_policy_attachment" "update_batches_db_rw_active_batches" {
+  role       = aws_iam_role.update_batches.name
+  policy_arn = aws_iam_policy.db_rw_active_batches_policy.arn
+}
+
 ## update-batch-status lambda policy attachments
 resource "aws_iam_role_policy_attachment" "update_batch_status" {
   role       = aws_iam_role.update_batch_status.name
@@ -259,6 +288,11 @@ resource "aws_iam_role_policy_attachment" "update_batch_status_db_rw_active_quer
 resource "aws_iam_role_policy_attachment" "update_batch_status_db_rw_completed_queries" {
   role       = aws_iam_role.update_batch_status.name
   policy_arn = aws_iam_policy.db_rw_completed_queries_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "update_batch_status_db_rw_active_batches" {
+  role       = aws_iam_role.update_batch_status.name
+  policy_arn = aws_iam_policy.db_rw_active_batches_policy.arn
 }
 
 ## update-word lambda policy attachments
