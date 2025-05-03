@@ -129,29 +129,6 @@ resource "aws_iam_policy" "sqs_rw_update_word_queue_policy" {
   tags = aws_servicecatalogappregistry_application.wordlist_application.application_tag
 }
 
-# read/write completed-queries-table policy
-resource "aws_iam_policy" "db_rw_completed_queries_policy" {
-  name = "${var.project}-${var.environment}-db-rw-completed-queries"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "dynamodb:PutItem",
-          "dynamodb:GetItem",
-          "dynamodb:UpdateItem",
-          "dynamodb:DeleteItem"
-        ]
-        Effect   = "Allow"
-        Resource = aws_dynamodb_table.completed_queries.arn
-      }
-    ]
-  })
-
-  tags = aws_servicecatalogappregistry_application.wordlist_application.application_tag
-}
-
 # read/write words-table policy
 resource "aws_iam_policy" "db_rw_words_policy" {
   name = "${var.project}-${var.environment}-db-rw-words"
@@ -283,11 +260,6 @@ resource "aws_iam_role_policy_attachment" "update_batch_status_sqs_rw_update_wor
 resource "aws_iam_role_policy_attachment" "update_batch_status_db_rw_active_queries" {
   role       = aws_iam_role.update_batch_status.name
   policy_arn = aws_iam_policy.db_rw_active_queries_policy.arn
-}
-
-resource "aws_iam_role_policy_attachment" "update_batch_status_db_rw_completed_queries" {
-  role       = aws_iam_role.update_batch_status.name
-  policy_arn = aws_iam_policy.db_rw_completed_queries_policy.arn
 }
 
 resource "aws_iam_role_policy_attachment" "update_batch_status_db_rw_active_batches" {

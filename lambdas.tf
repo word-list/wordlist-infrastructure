@@ -34,6 +34,7 @@ resource "aws_lambda_function" "query_word" {
   environment {
     variables = {
       ACTIVE_QUERIES_TABLE_NAME = aws_dynamodb_table.active_queries.name
+      ACTIVE_BATCHES_TABLE_NAME = aws_dynamodb_table.active_batches.name
     }
   }
 
@@ -54,6 +55,7 @@ resource "aws_lambda_function" "update_batches" {
   environment {
     variables = {
       ACTIVE_QUERIES_TABLE_NAME     = aws_dynamodb_table.active_queries.name
+      ACTIVE_BATCHES_TABLE_NAME     = aws_dynamodb_table.active_batches.name
       UPDATE_BATCH_STATUS_QUEUE_URL = aws_sqs_queue.update_batch_status.url
     }
   }
@@ -74,10 +76,10 @@ resource "aws_lambda_function" "update_batch_status" {
 
   environment {
     variables = {
-      ACTIVE_QUERIES_TABLE_NAME    = aws_dynamodb_table.active_queries.name
-      COMPLETED_QUERIES_TABLE_NAME = aws_dynamodb_table.completed_queries.name
-      QUERY_WORD_QUEUE_URL         = aws_sqs_queue.query_word.url
-      UPDATE_WORD_QUEUE_URL        = aws_sqs_queue.update_word.url
+      ACTIVE_QUERIES_TABLE_NAME = aws_dynamodb_table.active_queries.name
+      ACTIVE_BATCHES_TABLE_NAME = aws_dynamodb_table.active_batches.name
+      QUERY_WORD_QUEUE_URL      = aws_sqs_queue.query_word.url
+      UPDATE_WORD_QUEUE_URL     = aws_sqs_queue.update_word.url
     }
   }
 

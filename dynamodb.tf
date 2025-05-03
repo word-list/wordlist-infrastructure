@@ -110,20 +110,3 @@ resource "aws_dynamodb_table" "active_batches" {
 
   tags = aws_servicecatalogappregistry_application.wordlist_application.application_tag
 }
-
-# completed-queries-table
-resource "aws_dynamodb_table" "completed_queries" {
-  name         = "${var.project}-${var.environment}-completed-queries-table"
-  billing_mode = "PROVISIONED"
-
-  read_capacity  = 1
-  write_capacity = 1
-  hash_key       = "id"
-
-  attribute {
-    name = "id"
-    type = "S"
-  }
-
-  tags = aws_servicecatalogappregistry_application.wordlist_application.application_tag
-}
