@@ -90,6 +90,11 @@ resource "aws_dynamodb_table" "active_batches" {
   hash_key       = "id"
 
   attribute {
+    name = "id"
+    type = "S"
+  }
+
+  attribute {
     name = "batchRequestId"
     type = "S"
   }
@@ -97,6 +102,16 @@ resource "aws_dynamodb_table" "active_batches" {
   attribute {
     name = "status"
     type = "S"
+  }
+
+  global_secondary_index {
+    name = "batchRequestId-index"
+    hash_key = "batchRequestId"
+    projection_type = "ALL"
+
+    read_capacity = 1
+    write_capacity = 1
+
   }
 
   global_secondary_index {
