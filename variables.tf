@@ -22,10 +22,10 @@ variable "update_from_source_package_key" {
   default     = "updatesource.jar"
 }
 
-variable "query_word_package_key" {
+variable "query_words_package_key" {
   description = "The key for the query-word package in the deployment bucket"
   type        = string
-  default     = "queryword.jar"
+  default     = "querywords.jar"
 }
 
 variable "update_batches_package_key" {

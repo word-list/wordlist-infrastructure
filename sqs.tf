@@ -8,8 +8,8 @@ resource "aws_sqs_queue" "update_from_source" {
 }
 
 # query-word queue
-resource "aws_sqs_queue" "query_word" {
-  name                       = "${var.project}-${var.environment}-query-word-queue"
+resource "aws_sqs_queue" "query_words" {
+  name                       = "${var.project}-${var.environment}-query-words-queue"
   visibility_timeout_seconds = 30
   message_retention_seconds  = 86400
 

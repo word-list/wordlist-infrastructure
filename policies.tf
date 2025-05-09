@@ -40,9 +40,9 @@ resource "aws_iam_policy" "db_r_sources_policy" {
   tags = aws_servicecatalogappregistry_application.wordlist_application.application_tag
 }
 
-# read/write query-word-queue policy
-resource "aws_iam_policy" "sqs_rw_query_word_policy" {
-  name = "${var.project}-${var.environment}-sqs-rw-query-word"
+# read/write query-words-queue policy
+resource "aws_iam_policy" "sqs_rw_query_words_policy" {
+  name = "${var.project}-${var.environment}-sqs-rw-query-words"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -54,7 +54,7 @@ resource "aws_iam_policy" "sqs_rw_query_word_policy" {
           "sqs:GetQueueAttributes"
         ]
         Effect   = "Allow"
-        Resource = aws_sqs_queue.query_word.arn
+        Resource = aws_sqs_queue.query_words.arn
       }
     ]
   })
@@ -196,22 +196,22 @@ resource "aws_iam_role_policy_attachment" "update_from_source_db_r_sources" {
 
 resource "aws_iam_role_policy_attachment" "update_from_source_sqs_rw_query_word" {
   role       = aws_iam_role.update_from_source.name
-  policy_arn = aws_iam_policy.sqs_rw_query_word_policy.arn
+  policy_arn = aws_iam_policy.sqs_rw_query_words_policy.arn
 }
 
 ## query-word lambda policy attachments
-resource "aws_iam_role_policy_attachment" "query_word" {
-  role       = aws_iam_role.query_word.name
+resource "aws_iam_role_policy_attachment" "query_words" {
+  role       = aws_iam_role.query_words.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-resource "aws_iam_role_policy_attachment" "query_word_sqs_rw_query_word" {
-  role       = aws_iam_role.query_word.name
-  policy_arn = aws_iam_policy.sqs_rw_query_word_policy.arn
+resource "aws_iam_role_policy_attachment" "query_words_sqs_rw_query_word" {
+  role       = aws_iam_role.query_words.name
+  policy_arn = aws_iam_policy.sqs_rw_query_words_policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "query_word_db_rw_active_queries" {
-  role       = aws_iam_role.query_word.name
+resource "aws_iam_role_policy_attachment" "query_words_db_rw_active_queries" {
+  role       = aws_iam_role.query_words.name
   policy_arn = aws_iam_policy.db_rw_active_queries_policy.arn
 }
 
@@ -247,9 +247,9 @@ resource "aws_iam_role_policy_attachment" "update_batch_status_sqs_rw_update_bat
   policy_arn = aws_iam_policy.sqs_rw_update_batch_status.arn
 }
 
-resource "aws_iam_role_policy_attachment" "update_batch_status_sqs_rw_query_word" {
+resource "aws_iam_role_policy_attachment" "update_batch_status_sqs_rw_query_words" {
   role       = aws_iam_role.update_batch_status.name
-  policy_arn = aws_iam_policy.sqs_rw_query_word_policy.arn
+  policy_arn = aws_iam_policy.sqs_rw_query_words_policy.arn
 }
 
 resource "aws_iam_role_policy_attachment" "update_batch_status_sqs_rw_update_word_queue" {

@@ -20,8 +20,8 @@ resource "aws_iam_role" "update_from_source" {
 }
 
 # query-word lambda role
-resource "aws_iam_role" "query_word" {
-  name = "${var.project}-${var.environment}-query-word-role"
+resource "aws_iam_role" "query_words" {
+  name = "${var.project}-${var.environment}-query-words-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

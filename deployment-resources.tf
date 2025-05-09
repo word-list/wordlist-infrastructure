@@ -3,18 +3,6 @@ resource "aws_s3_bucket" "deployment_artifacts" {
   tags   = aws_servicecatalogappregistry_application.wordlist_application.application_tag
 }
 
-# resource "aws_s3_bucket_acl" "deployment_artifacts_acl" {
-#   bucket = aws_s3_bucket.deployment_artifacts.id
-#   acl    = "private"
-# }
-
-# resource "aws_s3_bucket_versioning" "deployment_artifacts" {
-#   bucket = aws_s3_bucket.deployment_artifacts.id
-
-#   versioning_configuration {
-#     status = "Enabled"
-#   }
-# }
 
 resource "aws_s3_bucket_policy" "deployment_artifacts" {
   bucket = aws_s3_bucket.deployment_artifacts.id

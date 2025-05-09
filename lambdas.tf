@@ -13,22 +13,22 @@ resource "aws_lambda_function" "update_from_source" {
   environment {
     variables = {
       SOURCES_TABLE_NAME   = aws_dynamodb_table.sources.name
-      QUERY_WORD_QUEUE_URL = aws_sqs_queue.query_word.url
+      QUERY_WORDS_QUEUE_URL = aws_sqs_queue.query_words.url
     }
   }
 
   tags = aws_servicecatalogappregistry_application.wordlist_application.application_tag
 }
 
-# query-word lambda
-resource "aws_lambda_function" "query_word" {
-  function_name = "${var.project}-${var.environment}-query-word"
+# query-words lambda
+resource "aws_lambda_function" "query_words" {
+  function_name = "${var.project}-${var.environment}-query-words"
   runtime       = "java21"
-  handler       = "tech.gaul.wordlist.queryword.App::handleRequest"
-  role          = aws_iam_role.query_word.arn
+  handler       = "tech.gaul.wordlist.querywords.App::handleRequest"
+  role          = aws_iam_role.query_words.arn
 
   s3_bucket = var.use_dummy_handlers ? null : aws_s3_bucket.deployment_artifacts.bucket
-  s3_key    = var.use_dummy_handlers ? null : var.query_word_package_key
+  s3_key    = var.use_dummy_handlers ? null : var.query_words_package_key
   filename  = var.use_dummy_handlers ? "./dummy.jar" : null
 
   environment {
@@ -78,7 +78,7 @@ resource "aws_lambda_function" "update_batch_status" {
     variables = {
       ACTIVE_QUERIES_TABLE_NAME = aws_dynamodb_table.active_queries.name
       ACTIVE_BATCHES_TABLE_NAME = aws_dynamodb_table.active_batches.name
-      QUERY_WORD_QUEUE_URL      = aws_sqs_queue.query_word.url
+      QUERY_WORDS_QUEUE_URL      = aws_sqs_queue.query_words.url
       UPDATE_WORD_QUEUE_URL     = aws_sqs_queue.update_word.url
     }
   }
