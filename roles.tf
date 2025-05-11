@@ -40,8 +40,8 @@ resource "aws_iam_role" "query_words" {
 }
 
 # update-batches lambda role
-resource "aws_iam_role" "update_batches" {
-  name = "${var.project}-${var.environment}-update-batches-role"
+resource "aws_iam_role" "check_batches_for_update" {
+  name = "${var.project}-${var.environment}-check-batches-for-update-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

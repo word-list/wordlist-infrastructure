@@ -215,24 +215,24 @@ resource "aws_iam_role_policy_attachment" "query_words_db_rw_active_queries" {
   policy_arn = aws_iam_policy.db_rw_active_queries_policy.arn
 }
 
-## update-batches lambda policy attachments
-resource "aws_iam_role_policy_attachment" "update_batches" {
-  role       = aws_iam_role.update_batches.name
+## check-batches-for-update lambda policy attachments
+resource "aws_iam_role_policy_attachment" "check_batches_for_update" {
+  role       = aws_iam_role.check_batches_for_update.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-resource "aws_iam_role_policy_attachment" "update_batches_sqs_rw_update_batch_status" {
-  role       = aws_iam_role.update_batches.name
+resource "aws_iam_role_policy_attachment" "check_batches_for_update_sqs_rw_update_batch_status" {
+  role       = aws_iam_role.check_batches_for_update.name
   policy_arn = aws_iam_policy.sqs_rw_update_batch_status.arn
 }
 
-resource "aws_iam_role_policy_attachment" "update_batches_db_rw_active_queries" {
-  role       = aws_iam_role.update_batches.name
+resource "aws_iam_role_policy_attachment" "check_batches_for_update_db_rw_active_queries" {
+  role       = aws_iam_role.check_batches_for_update.name
   policy_arn = aws_iam_policy.db_rw_active_queries_policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "update_batches_db_rw_active_batches" {
-  role       = aws_iam_role.update_batches.name
+resource "aws_iam_role_policy_attachment" "check_batches_for_update_db_rw_active_batches" {
+  role       = aws_iam_role.check_batches_for_update.name
   policy_arn = aws_iam_policy.db_rw_active_batches_policy.arn
 }
 
