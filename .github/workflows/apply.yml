@@ -8,6 +8,12 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         environment: ${{ github.event.release.prerelease && 'staging' || 'production' }}
+        env:
+          TF_VAR_check_batches_for_update_package_key: ${{ vars.TF_VAR_CHECK_BATCHES_FOR_UPDATE_PACKAGE_KEY }}
+          TF_VAR_query_words_package_key: ${{ vars.TF_VAR_QUERY_WORDS_PACKAGE_KEY }}
+          TF_VAR_update_batch_status_package_key: ${{ vars.TF_VAR_UPDATE_BATCH_STATUS_PACKAGE_KEY }}
+          TF_VAR_update_from_source_package_key: ${{ vars.TF_VAR_UPDATE_FROM_SOURCE_PACKAGE_KEY }}
+          TF_VAR_update_word_package_key: ${{ vars.TF_VAR_UPDATE_WORD_PACKAGE_KEY }}
         steps:
           - name: Checkout terraform
             uses: actions/checkout@v4
@@ -43,11 +49,5 @@ jobs:
               issue-body: "Please approve this production deployment."
 
           - name: Terraform apply
-            env:
-              TF_VAR_check_batches_for_update_package_key=${{ vars.TF_VAR_CHECK_BATCHES_FOR_UPDATE_PACKAGE_KEY }}
-              TF_VAR_query_words_package_key=${{ vars.TF_VAR_QUERY_WORDS_PACKAGE_KEY }}
-              TF_VAR_update_batch_status_package_key=${{ vars.TF_VAR_UPDATE_BATCH_STATUS_PACKAGE_KEY }}
-              TF_VAR_update_from_source_package_key=${{ vars.TF_VAR_UPDATE_FROM_SOURCE_PACKAGE_KEY }}
-              TF_VAR_update_word_package_key=${{ vars.TF_VAR_UPDATE_WORD_PACKAGE_KEY }}
             run: |
               terraform apply -auto-approve
