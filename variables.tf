@@ -19,31 +19,31 @@ variable "deployment_bucket_name" {
 variable "update_from_source_package_key" {
   description = "The key for the update-from-source package in the deployment bucket"
   type        = string
-  default     = "updatesource.jar"
+  default     = "dummy.jar"
 }
 
 variable "query_words_package_key" {
   description = "The key for the query-word package in the deployment bucket"
   type        = string
-  default     = "querywords.jar"
+  default     = "dummy.jar"
 }
 
 variable "check_batches_for_update_package_key" {
   description = "The key for the check-batches-for-update package in the deployment bucket"
   type        = string
-  default     = "checkbatchesforupdate.jar"
+  default     = "dummy.jar"
 }
 
 variable "update_batch_status_package_key" {
   description = "The key for the update-batch-status package in the deployment bucket"
   type        = string
-  default     = "updatebatchstatus.jar"
+  default     = "dummy.jar"
 }
 
-variable "update_word_package_Key" {
+variable "update_word_package_key" {
   description = "The key for the update-word package in the deployment bucket"
   type        = string
-  default     = "updateword.jar"
+  default     = "dummy.jar"
 }
 
 variable "use_dummy_handlers" {

@@ -94,7 +94,7 @@ resource "aws_lambda_function" "update_word" {
   role          = aws_iam_role.update_word.arn
 
   s3_bucket = var.use_dummy_handlers ? null : aws_s3_bucket.deployment_artifacts.bucket
-  s3_key    = var.use_dummy_handlers ? null : var.update_word_package_Key
+  s3_key    = var.use_dummy_handlers ? null : var.update_word_package_key
   filename  = var.use_dummy_handlers ? "./dummy.jar" : null
 
   environment {
