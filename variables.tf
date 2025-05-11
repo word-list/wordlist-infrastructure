@@ -16,31 +16,32 @@ variable "deployment_bucket_name" {
   default     = "deployment-bucket"
 }
 
-variable "update_from_source_package_key" {
+// Variables are deliberately uppercase as github environments only support uppercase environment variable names.
+variable "UPDATE_FROM_SOURCE_PACKAGE_KEY" {
   description = "The key for the update-from-source package in the deployment bucket"
   type        = string
   default     = "updatesource.jar"
 }
 
-variable "query_words_package_key" {
+variable "QUERY_WORDS_PACKAGE_KEY" {
   description = "The key for the query-word package in the deployment bucket"
   type        = string
   default     = "querywords.jar"
 }
 
-variable "check_batches_for_update_package_key" {
+variable "CHECK_BATCHES_FOR_UPDATE_PACKAGE_KEY" {
   description = "The key for the check-batches-for-update package in the deployment bucket"
   type        = string
   default     = "checkbatchesforupdate.jar"
 }
 
-variable "update_batch_status_package_key" {
+variable "UPDATE_BATCH_STATUS_PACKAGE_KEY" {
   description = "The key for the update-batch-status package in the deployment bucket"
   type        = string
   default     = "updatebatchstatus.jar"
 }
 
-variable "update_word_package_key" {
+variable "UPDATE_WORD_PACKAGE_KEY" {
   description = "The key for the update-word package in the deployment bucket"
   type        = string
   default     = "updateword.jar"
