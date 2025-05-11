@@ -7,7 +7,7 @@ resource "aws_lambda_function" "update_from_source" {
   role          = aws_iam_role.update_from_source.arn
 
   s3_bucket = var.use_dummy_handlers ? null : aws_s3_bucket.deployment_artifacts.bucket
-  s3_key    = var.use_dummy_handlers ? null : var.UPDATE_FROM_SOURCE_PACKAGE_KEY
+  s3_key    = var.use_dummy_handlers ? null : var.update_from_source_package_key
   filename  = var.use_dummy_handlers ? "./dummy.jar" : null
 
   environment {
@@ -28,7 +28,7 @@ resource "aws_lambda_function" "query_words" {
   role          = aws_iam_role.query_words.arn
 
   s3_bucket = var.use_dummy_handlers ? null : aws_s3_bucket.deployment_artifacts.bucket
-  s3_key    = var.use_dummy_handlers ? null : var.QUERY_WORDS_PACKAGE_KEY
+  s3_key    = var.use_dummy_handlers ? null : var.query_words_package_key
   filename  = var.use_dummy_handlers ? "./dummy.jar" : null
 
   environment {
@@ -49,7 +49,7 @@ resource "aws_lambda_function" "check_batches_for_update" {
   role          = aws_iam_role.check_batches_for_update.arn
 
   s3_bucket = var.use_dummy_handlers ? null : aws_s3_bucket.deployment_artifacts.bucket
-  s3_key    = var.use_dummy_handlers ? null : var.CHECK_BATCHES_FOR_UPDATE_PACKAGE_KEY
+  s3_key    = var.use_dummy_handlers ? null : var.check_batches_for_update_package_key
   filename  = var.use_dummy_handlers ? "./dummy.jar" : null
 
   environment {
@@ -71,7 +71,7 @@ resource "aws_lambda_function" "update_batch_status" {
   role          = aws_iam_role.update_batch_status.arn
 
   s3_bucket = var.use_dummy_handlers ? null : aws_s3_bucket.deployment_artifacts.bucket
-  s3_key    = var.use_dummy_handlers ? null : var.UPDATE_BATCH_STATUS_PACKAGE_KEY
+  s3_key    = var.use_dummy_handlers ? null : var.update_batch_status_package_key
   filename  = var.use_dummy_handlers ? "./dummy.jar" : null
 
   environment {
@@ -94,7 +94,7 @@ resource "aws_lambda_function" "update_word" {
   role          = aws_iam_role.update_word.arn
 
   s3_bucket = var.use_dummy_handlers ? null : aws_s3_bucket.deployment_artifacts.bucket
-  s3_key    = var.use_dummy_handlers ? null : var.UPDATE_WORD_PACKAGE_KEY
+  s3_key    = var.use_dummy_handlers ? null : var.update_word_package_Key
   filename  = var.use_dummy_handlers ? "./dummy.jar" : null
 
   environment {
