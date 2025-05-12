@@ -51,3 +51,9 @@ variable "use_dummy_handlers" {
   type        = bool
   default     = false
 }
+
+variable "api_update_from_source_package_key" {
+  description = "The key for the api-update-from-source package in the deployment bucket"
+  type        = string
+  default     = "dummy.jar"
+}
