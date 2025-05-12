@@ -1,4 +1,4 @@
-# POST sources/update  lambda
+# POST sources/update (api-update-from-source) lambda
 resource "aws_lambda_function" "api_update_from_source" {
   function_name = "${var.project}-${var.environment}-api-update-from-source"
   runtime       = "java21"
@@ -17,4 +17,13 @@ resource "aws_lambda_function" "api_update_from_source" {
   }
 
   tags = aws_servicecatalogappregistry_application.wordlist_application.application_tag
+}
+
+resource "aws_api_gateway_integration" "api_update_from_source" {
+  rest_api_id             = aws_api_gateway_rest_api.wordlist.id
+  resource_id             = aws_api_gateway_resource.sources.id
+  http_method             = aws_api_gateway_method.update_from_source.http_method
+  type                    = "AWS_PROXY"
+  integration_http_method = "POST"
+  uri                     = aws_lambda_function.api_update_from_source.invoke_arn
 }
