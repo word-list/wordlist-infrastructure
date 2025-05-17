@@ -16,7 +16,7 @@ resource "aws_api_gateway_resource" "sources" {
 
 resource "aws_api_gateway_method" "POST_sources" {
   rest_api_id   = aws_api_gateway_rest_api.wordlist.id
-  resource_id   = aws_api_gateway_resource.update_from_source.id
+  resource_id   = aws_api_gateway_resource.sources.id
   http_method   = "POST"
   authorization = "COGNITO_USER_POOLS"
   authorizer_id = aws_api_gateway_authorizer.cognito_auth.id
@@ -24,7 +24,7 @@ resource "aws_api_gateway_method" "POST_sources" {
 
 resource "aws_api_gateway_method" "PUT_sources" {
   rest_api_id   = aws_api_gateway_rest_api.wordlist.id
-  resource_id   = aws_api_gateway_resource.update_from_source.id
+  resource_id   = aws_api_gateway_resource.sources.id
   http_method   = "PUT"
   authorization = "COGNITO_USER_POOLS"
   authorizer_id = aws_api_gateway_authorizer.cognito_auth.id
@@ -32,7 +32,7 @@ resource "aws_api_gateway_method" "PUT_sources" {
 
 resource "aws_api_gateway_method" "DELETE_sources" {
   rest_api_id   = aws_api_gateway_rest_api.wordlist.id
-  resource_id   = aws_api_gateway_resource.update_from_source.id
+  resource_id   = aws_api_gateway_resource.sources.id
   http_method   = "DELETE"
   authorization = "COGNITO_USER_POOLS"
   authorizer_id = aws_api_gateway_authorizer.cognito_auth.id
@@ -49,6 +49,6 @@ resource "aws_api_gateway_stage" "stage" {
 }
 
 resource "aws_api_gateway_deployment" "deploy" {
-  depends_on  = [aws_api_gateway_integration.update_from_source]
+  depends_on  = [aws_api_gateway_integration.api_update_from_source]
   rest_api_id = aws_api_gateway_rest_api.wordlist.id
 }

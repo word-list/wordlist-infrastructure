@@ -22,7 +22,7 @@ resource "aws_lambda_function" "api_update_from_source" {
 resource "aws_api_gateway_integration" "api_update_from_source" {
   rest_api_id             = aws_api_gateway_rest_api.wordlist.id
   resource_id             = aws_api_gateway_resource.sources.id
-  http_method             = aws_api_gateway_method.update_from_source.http_method
+  http_method             = aws_api_gateway_method.POST_sources.http_method
   type                    = "AWS_PROXY"
   integration_http_method = "POST"
   uri                     = aws_lambda_function.api_update_from_source.invoke_arn

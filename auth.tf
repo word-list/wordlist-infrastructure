@@ -22,7 +22,7 @@ resource "aws_cognito_user_pool_client" "user_pool_client" {
 
 resource "aws_api_gateway_authorizer" "cognito_auth" {
   name            = "${var.project}-${var.environment}-cognito-authoriser"
-  rest_api_id     = aws_api_gateway_rest_api.update_from_source.rest_api_id
+  rest_api_id     = aws_api_gateway_rest_api.wordlist.id
   type            = "COGNITO_USER_POOLS"
   identity_source = "method.request.header.Authorization"
   provider_arns   = [aws_cognito_user_pool.user_pool]
