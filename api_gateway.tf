@@ -8,10 +8,16 @@ resource "aws_api_gateway_rest_api" "wordlist" {
 // ======================================================================
 // sources
 // ======================================================================
-resource "aws_api_gateway_resource" "sources" {
+resource "aws_api_gateway_resource" "api" {
   rest_api_id = aws_api_gateway_rest_api.wordlist.id
   parent_id   = aws_api_gateway_rest_api.wordlist.root_resource_id
-  path_part   = "api/sources"  
+  path_part   = "api"
+}
+
+resource "aws_api_gateway_resource" "sources" {
+  rest_api_id = aws_api_gateway_rest_api.wordlist.id
+  parent_id   = aws_api_gateway_resource.api.id  # Reference the "api" resource
+  path_part   = "sources"
 }
 
 resource "aws_api_gateway_method" "POST_sources" {
