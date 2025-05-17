@@ -18,6 +18,9 @@ resource "aws_cognito_user_pool_client" "user_pool_client" {
   allowed_oauth_flows          = ["code", "implicit"]
   allowed_oauth_scopes         = ["openid", "email", "profile"]
   supported_identity_providers = ["COGNITO"]  
+
+  callback_urls = ["https://wordlist.gaul.tech/callback"]
+  logout_urls   = ["https://wordlist.gaul.tech/logout"]
 }
 
 resource "aws_api_gateway_authorizer" "cognito_auth" {
