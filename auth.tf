@@ -13,7 +13,7 @@ resource "aws_cognito_user_pool" "user_pool" {
 
 resource "aws_cognito_user_pool_client" "user_pool_client" {
   name                         = "${var.project}-${var.environment}-app-client"
-  user_pool_id                 = aws_cognito_user_pool.user_pool
+  user_pool_id                 = aws_cognito_user_pool.user_pool.id
   generate_secret              = false
   allowed_oauth_flows          = ["code", "implicit"]
   allowed_oauth_scopes         = ["openid", "email", "profile"]
@@ -25,5 +25,5 @@ resource "aws_api_gateway_authorizer" "cognito_auth" {
   rest_api_id     = aws_api_gateway_rest_api.wordlist.id
   type            = "COGNITO_USER_POOLS"
   identity_source = "method.request.header.Authorization"
-  provider_arns   = [aws_cognito_user_pool.user_pool]
+  provider_arns   = [aws_cognito_user_pool.user_pool.arn]
 }
