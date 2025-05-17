@@ -28,23 +28,21 @@ resource "aws_api_gateway_method" "POST_sources" {
   authorizer_id = aws_api_gateway_authorizer.cognito_auth.id
 }
 
-resource "aws_api_gateway_method" "PUT_sources" {
-  rest_api_id   = aws_api_gateway_rest_api.wordlist.id
-  resource_id   = aws_api_gateway_resource.sources.id
-  http_method   = "PUT"
-  authorization = "COGNITO_USER_POOLS"
-  authorizer_id = aws_api_gateway_authorizer.cognito_auth.id
-}
+# resource "aws_api_gateway_method" "PUT_sources" {
+#   rest_api_id   = aws_api_gateway_rest_api.wordlist.id
+#   resource_id   = aws_api_gateway_resource.sources.id
+#   http_method   = "PUT"
+#   authorization = "COGNITO_USER_POOLS"
+#   authorizer_id = aws_api_gateway_authorizer.cognito_auth.id
+# }
 
-resource "aws_api_gateway_method" "DELETE_sources" {
-  rest_api_id   = aws_api_gateway_rest_api.wordlist.id
-  resource_id   = aws_api_gateway_resource.sources.id
-  http_method   = "DELETE"
-  authorization = "COGNITO_USER_POOLS"
-  authorizer_id = aws_api_gateway_authorizer.cognito_auth.id
-}
-
-
+# resource "aws_api_gateway_method" "DELETE_sources" {
+#   rest_api_id   = aws_api_gateway_rest_api.wordlist.id
+#   resource_id   = aws_api_gateway_resource.sources.id
+#   http_method   = "DELETE"
+#   authorization = "COGNITO_USER_POOLS"
+#   authorizer_id = aws_api_gateway_authorizer.cognito_auth.id
+# }
 
 resource "aws_api_gateway_stage" "stage" {
   rest_api_id   = aws_api_gateway_rest_api.wordlist.id
