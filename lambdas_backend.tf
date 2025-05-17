@@ -2,13 +2,15 @@
 # update-from-source lambda
 resource "aws_lambda_function" "update_from_source" {
   function_name = "${var.project}-${var.environment}-update-from-source"
-  runtime       = "java21"
-  handler       = "tech.gaul.wordlist.updatefromsource.App::handleRequest"
+  runtime       = "provided.al2023"
+  handler       = "bootstrap"
   role          = aws_iam_role.update_from_source.arn
+
+  architectures = ["arm64"]
 
   s3_bucket = var.use_dummy_handlers ? null : aws_s3_bucket.deployment_artifacts.bucket
   s3_key    = var.use_dummy_handlers ? null : var.update_from_source_package_key
-  filename  = var.use_dummy_handlers ? "./dummy.jar" : null
+  filename  = var.use_dummy_handlers ? "./dummy" : null
 
   environment {
     variables = {
